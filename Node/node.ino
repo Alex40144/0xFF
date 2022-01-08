@@ -1,6 +1,6 @@
+#include <I2C_AXP192.h>
 #include <LoRa.h>
 #include <TinyGPSPlus.h>
-#include <I2C_AXP192.h>
 
 I2C_AXP192 axp192(I2C_AXP192_DEFAULT_ADDRESS, Wire1);
 
@@ -11,6 +11,7 @@ TinyGPSPlus gps;
 
 
 void setup() {
+    axp192.bitOff(0x32, (1<<7));
     Serial.begin(115200);
     Serial1.begin(9600, SERIAL_8N1, 34, 12, false, 1000);;
     delay(1000);
@@ -45,12 +46,18 @@ void setup() {
 
 void loop() {
     char str[12];
-
     LoRa.beginPacket();
     LoRa.print("Number of satellites: ");
     sprintf(str, "%d", gps.satellites.value());
     LoRa.print(str);
     LoRa.endPacket();
+
+    if(digitalRead(btnPin) == 0) {
+        LoRa.beginPacket();
+        LoRa.print("Shutting Down");
+        LoRa.endPacket();
+        axp192.powerOff();
+    }
 
     smartDelay(5000);
 }
