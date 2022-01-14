@@ -1,7 +1,7 @@
 {
-    "sketch": "base.ino",
     "configuration": "PSRAM=disabled,FlashFreq=80,UploadSpeed=921600,DebugLevel=none",
     "board": "esp32:esp32:t-beam",
     "port": "COM3",
-    "output": "./build"
+    "sketch": "base.ino",
+    "output": "./Build"
 }

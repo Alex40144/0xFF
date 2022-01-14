@@ -1,13 +1,10 @@
 #include <LoRa.h>
-#include <TinyGPSPlus.h>
 #include <I2C_AXP192.h>
 
 I2C_AXP192 axp192(I2C_AXP192_DEFAULT_ADDRESS, Wire1);
 
 const int btnPin = 38;
 
-
-TinyGPSPlus gps;
 
 
 void setup() {
@@ -68,10 +65,6 @@ static void smartDelay(unsigned long ms)
     unsigned long start = millis();
     do 
     {
-        while (Serial1.available()) {
-            gps.encode(Serial1.read());
-            //Serial.write(Serial1.read()); //passthrough
-        }
             
     } while (millis() - start < ms);
 }

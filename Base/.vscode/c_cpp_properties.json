@@ -2,25 +2,6 @@
     "version": 4,
     "configurations": [
         {
-            "name": "Win32",
-            "compilerPath": "C:\\msys64\\mingw64\\bin\\gcc.exe",
-            "compilerArgs": [],
-            "intelliSenseMode": "gcc-x64",
-            "includePath": [
-                "${workspaceFolder}/**",
-                "C:/Users/giddy/Documents/Arduino/libraries",
-                "C:/Program Files (x86)/Arduino/libraries"
-            ],
-            "forcedInclude": [],
-            "cStandard": "gnu17",
-            "cppStandard": "gnu++14",
-            "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "_UNICODE"
-            ]
-        },
-        {
             "name": "Arduino",
             "compilerPath": "C:\\Users\\giddy\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\xtensa-esp32-elf-gcc\\1.22.0-97-gc752ad5-5.2.0\\bin\\xtensa-esp32-elf-g++",
             "compilerArgs": [
@@ -113,7 +94,6 @@
                 "C:\\Users\\giddy\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.6\\variants\\tbeam",
                 "C:\\Users\\giddy\\Documents\\Arduino\\libraries\\LoRa\\src",
                 "C:\\Users\\giddy\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.6\\libraries\\SPI\\src",
-                "C:\\Users\\giddy\\Documents\\Arduino\\libraries\\TinyGPSPLUS\\src",
                 "C:\\Users\\giddy\\Documents\\Arduino\\libraries\\I2C_AXP192_Power_management\\src",
                 "C:\\Users\\giddy\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.6\\libraries\\Wire\\src",
                 "c:\\users\\giddy\\appdata\\local\\arduino15\\packages\\esp32\\tools\\xtensa-esp32-elf-gcc\\1.22.0-97-gc752ad5-5.2.0\\xtensa-esp32-elf\\include\\c++\\5.2.0",

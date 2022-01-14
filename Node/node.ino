@@ -1,14 +1,46 @@
 #include <I2C_AXP192.h>
 #include <LoRa.h>
-#include <TinyGPSPlus.h>
+#include <ArduinoNmeaParser.h>
 
 I2C_AXP192 axp192(I2C_AXP192_DEFAULT_ADDRESS, Wire1);
 
 const int btnPin = 38;
 
 
-TinyGPSPlus gps;
+void onRmcUpdate(nmea::RmcData const rmc)
+{
+    char str[20];
+    Serial.print(rmc.time_utc.second);
+    LoRa.beginPacket();
+    sprintf(str, "%d", rmc.time_utc.hour);
+    LoRa.print(str);
+    LoRa.print(":");
+    sprintf(str, "%d", rmc.time_utc.minute);
+    LoRa.print(str);
+    LoRa.print(":");
+    sprintf(str, "%d", rmc.time_utc.second);
+    LoRa.print(str);
+    LoRa.print(".");
+    sprintf(str, "%d", rmc.time_utc.microsecond);
+    LoRa.print(str);
 
+    if (rmc.is_valid)
+    {
+        LoRa.print(" : LON ");
+        LoRa.print(rmc.longitude);
+        LoRa.print(" ° | LAT ");
+        LoRa.print(rmc.latitude);
+        LoRa.print(" ° | VEL ");
+        LoRa.print(rmc.speed);
+        LoRa.print(" m/s | HEADING ");
+        LoRa.print(rmc.course);
+        LoRa.print(" °");
+    }
+
+    LoRa.endPacket();
+}
+
+ArduinoNmeaParser parser(onRmcUpdate, nullptr);
 
 void setup() {
     axp192.bitOff(0x32, (1<<7));
@@ -45,12 +77,6 @@ void setup() {
 }
 
 void loop() {
-    char str[12];
-    LoRa.beginPacket();
-    LoRa.print("Number of satellites: ");
-    sprintf(str, "%d", gps.satellites.value());
-    LoRa.print(str);
-    LoRa.endPacket();
 
     if(digitalRead(btnPin) == 0) {
         LoRa.beginPacket();
@@ -67,8 +93,8 @@ static void smartDelay(unsigned long ms)
     unsigned long start = millis();
     do 
     {
-        while (Serial1.available()){
-            gps.encode(Serial1.read());
+        if (Serial1.available()){
+            parser.encode((char)Serial1.read());
             //Serial.write(Serial1.read()); //passthrough
         }
     } while (millis() - start < ms);

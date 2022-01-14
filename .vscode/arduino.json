@@ -1,6 +1,0 @@
-{
-    "configuration": "PSRAM=disabled,FlashFreq=80,UploadSpeed=921600,DebugLevel=none",
-    "board": "esp32:esp32:t-beam",
-    "sketch": "Base\\base.ino",
-    "port": "COM3"
-}
