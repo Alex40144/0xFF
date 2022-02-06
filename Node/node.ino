@@ -45,7 +45,7 @@ ArduinoNmeaParser parser(onRmcUpdate, nullptr);
 void setup() {
     axp192.bitOff(0x32, (1<<7));
     Serial.begin(115200);
-    Serial1.begin(9600, SERIAL_8N1, 34, 12, false, 1000);;
+    Serial1.begin(9600, SERIAL_8N1, 34, 12, false, 1000);
     delay(1000);
 
     Wire1.begin(21, 22);
@@ -94,8 +94,9 @@ static void smartDelay(unsigned long ms)
     do 
     {
         if (Serial1.available()){
-            parser.encode((char)Serial1.read());
-            //Serial.write(Serial1.read()); //passthrough
+            char data = Serial1.read();
+            parser.encode((char)data);
+            //Serial.write(data); //passthrough
         }
     } while (millis() - start < ms);
 }
